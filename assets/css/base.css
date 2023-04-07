@@ -1,0 +1,399 @@
+/*申明 
+  规定一下个人的代码规范：
+    1.代码块分级描述，root注释代表全局区，盒子模型第一层T1(max)，第二层T2,以此类推
+    且缩进严格按照层级进行，便于阅读和修改；
+    2.文字注释写于代码下方；
+    3.无论代码是否被注释，文字注释需要比代码再向右缩进2格，代码注释则不需要以示区分；  
+    4.css样式代码顺序为：先写完T1所有代码，再写T2;
+  当不清楚盒子所在的区域和层级时，改变或添加背景颜色，突出显示该块的位置
+*/
+
+:root {
+  
+  --backColor: #fff;
+    /* 默认背景色 */
+  --borderline: #00283aa7;
+
+  --headerCOlor: #00283A;
+  
+    /* 卡片 */
+  --headerhover: rgb(0, 40, 58, .8);
+    /* 卡片 */
+
+  --headerFont: #fff; 
+    /* 默认字体颜色 */
+
+  
+  --fontColor: #00283A;
+  --mainColor: #ff8181;
+  --bagColor: #02162b;
+    /* 反差色 */
+} 
+  /* 提前准备好颜色，用var加变量名代替 */
+
+body,
+html {
+    /* root全局区 */
+  position: relative;
+  margin: 0px;
+  width: 100%;
+  padding: 0px;
+  font-size: 13px;
+    /* 字体大小 */
+  letter-spacing: 2px;
+    /* 字符间距 */
+  /* transition: .4s ease-in-out; */
+    /* 没有 “：hover”相匹配，无影响*/
+  font-weight: 400;
+    /* 字体的加粗程度 */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  color: var(--headerFont);
+    /* 会影响top1和left1的字体颜色 */
+  background-color: var(--bagColor);
+  /* background: linear-gradient(to left, #2bc0e4, #eaecc6); */
+  /* background-image:linear-gradient(to right bottom,lightblue,rgba(134, 201, 237, 0.677),rgba(0, 174, 255, 0.671)); */
+}
+  /* 全局设定,没必要改，除了背景颜色*/
+
+
+.header {
+    /* T1顶部栏 */
+  position: fixed;
+    /* 使得顶部栏的位置固定在视角中 */
+  z-index: 2;
+    /* z-index 属性设定了一个定位元素及其后代元素或 flex 项目的 z-order。
+    当元素之间重叠的时候，z-index 较大的元素会覆盖较小的元素在上层进行显示。 */
+  top: 0px;
+    /* 使导航栏始终在最上方 */
+  width: 110%;
+    /*由于是均匀分布，块的长度会影响内容的分布，由于字符串相比原来变长，增加宽度*/
+  height: 70px;
+  line-height: 70px;
+    /* 影响容器的高度，没必要改，跟导航栏块的高度一致就行了；
+    但不能注释掉，影响文字的排布 */
+  background-color: var(--headerCOlor);
+    /* 背景颜色，可修改参数 */
+  border-radius: 0% 0% 10px 10px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 15%);
+}
+.navigation {
+  /* T1 导航栏下和页面主内容下的一层盒子，放背景正合适，但这个块是会随着页面移动的 */
+margin: 0px auto 0;
+width: 95%;
+background-color: transparent;
+height: 600px;
+border-radius: 20px;
+background-image: url("../image/background/主图4.png");
+  /* 设置块背景，而不是页面背景，好看 */
+background-attachment: fixed;
+background-size: 100%;
+background-repeat: no-repeat;
+overflow: hidden;
+color: #fff;
+}
+.content {
+    /* T1 内容卡片所在的块 */
+  position: relative;
+  top: -90px;
+  min-height: 1000px;
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  /* background-color: rgba(10, 15, 20, 0.2); */
+  /* background-color: white; */
+}
+
+
+
+.header>div {
+    /* T2导航栏 */
+  display: flex;
+  justify-content: space-between;
+    /* 内容均匀分布 */
+  /* background-color: white; */
+}
+
+.borderbefore::before {
+    /* T2 上面的装饰 */
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 8%;
+  right: 8%;
+  /* height: 10px;
+  background-color: var(--borderline); */
+      /* 默认设置，不能直接可视化体现，意义不大 */
+  height: 750px;
+  background-color: rgb(221, 221, 234);
+      /* 好玩的，按注释来说本来应该是导航栏的装饰，但实际发现在left1吸盘上，
+    而且由于设置透明度后，置于吸盘上层，可以用来做一层磨砂块 */
+  /* border-radius: 5px 5px 0% 0%; */
+      /* 默认设置，磨砂块的圆角不明显 */
+  border-radius: 20px 20px 20px 20px;
+  opacity: .2;
+}
+
+.borderafter::after {
+  /* T2下面的装饰 -一条色带,指导航栏下面*/
+  content: '';
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  right: 0px;
+  /* height: 8px; */
+    /* 默认设置 */
+  height: 10px;
+  /* 4个属性值决定的是导航栏下层的阴影效果的色块的位置大小 */
+  /* background-color: #00283A; */
+  /* background-color: var(--borderline); */
+  background-color: white;
+  border-radius: 0% 0% 5px 5px;
+  opacity: .3;
+}
+
+.navigation>.nav-titleBox {
+    /* T2标题所在区域 */
+  margin-top: 18rem;
+    /* 决定该块的位置 */
+  /* background-color: lightblue; */
+    /* 实验同一个class类不同名字优先级，以及盒子的位置 */
+}
+
+.co {
+    /* T2标题所在区域 */
+  width: 70%;
+  margin: 0 auto;
+  /* background-color: white; */
+    /* 实验同一个class类不同名字优先级，以及盒子的位置 */
+}
+
+.co-left {
+    /* T2/T3挤占位置的块元素，将 titileBox(T2)、borderbefore(T2)等元素向右边挤压*/
+  width: 35%;
+  display: inline-block;
+  height: 50px;
+  /* background-color: white; */
+}
+
+.content .me-card {
+  /* T2左半部分 卡片吸盘*/
+  top: 390px;
+  /* background-color: white; */
+}
+
+.carbox {
+    /* T2左半部分 卡片吸盘 与me-card、borderbefore同一个class列表*/
+  background-color: var(--headerCOlor);
+    /* 可以试着注释掉这一句，卡片吸盘外壳变为无色，也不错 */
+  border-radius: 12px;
+  box-shadow: 0 2px 4px -2px rgb(0 0 0 / 15%);
+  /* background-color: white; */
+}
+
+.co-right {
+    /* T2/T3在页面右边放置文字、图片等内容 */
+  width: 64%;
+    /* 被挤压后，几乎无法通过该改变该位置的属性来增大盒子宽度，但可以变窄 */
+  display: inline-block;
+  /* background-color: #45454566; */
+  min-height: 50px;
+  /* background-color: white; */
+}
+
+.content .borderbotm {
+    /* T2虚线 */
+  /* border-style: dashed; */
+    /* 虚线样式为加粗的 */
+  border-bottom: 1px dashed rgb(187, 185, 185);
+  height: 0px;
+  margin: 35px 0;
+}
+
+.copybottm {
+    /* T2底部块 */
+  padding: 30px 20px;
+  color: #7B7B7D;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: .4s ease-in-out;
+  text-transform: uppercase;
+    /* 设置文本内容为全大写 */
+}
+
+
+
+.col {
+  /* T3 顶部导航栏 */
+  width: 75%;
+  margin: 0 auto;
+  /* font-size: 30px; */
+    /* 设置导航栏中内容字体大小 */
+  /* border: 1px solid red; */
+    /* 给容器加一个边框，只用来可视化容器，以定位 */
+  /* background-color: white; */
+}
+.header-nav {    
+  /* T4...顶部导航栏 */
+display: inline-block;
+}
+.header-nav>li {
+padding: 0 30px;
+position: relative;
+transition: color .6s ease-in-out;
+box-sizing: border-box;
+}
+.header-nav>li:hover {
+color: var(--mainColor);
+}
+ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+ul>li {
+  display: inline-block;
+}
+a {
+  transition: color .6s ease-in-out;
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  color: var(--mainColor);
+}
+
+
+.mecar-title .me-image {
+  /* T3... 吸盘图标、状态 */
+  position: relative;
+  display: inline-block;
+}
+.me-image>img {
+  width: 100px;
+  height: 100px;
+  /* border: solid 3px #FCFCFE; */
+  border-radius: 50%;
+  box-shadow: 0 2px 4px -2px rgb(0 0 0 / 15%);
+  border: solid 5px #FCFCFE;
+}
+/* img:hover{
+  transform: scale(1.5);
+  transition: all ease-in 0.9s;
+} */
+.mecar-title .me-image>.status {
+  
+  height: 31px;
+  width: 31px;
+  box-shadow: 0 2px 4px -2px rgb(0 0 0 / 15%);
+  border-radius: 50%;
+  position: absolute;
+  border: solid 3px #FCFCFE;
+  right: 0px;
+  bottom: -10px;
+  background-color: var(--mainColor);
+  overflow: hidden;
+  color: #fff;
+  transition: width .2s ease-in-out, visible .2s ease-in-out;
+  /* background-color: white; */
+}
+.mecar-title .me-image:hover .status {
+  width: 100px;
+  border-radius: 20px;
+}
+/* .mecar-title .me-image:hover .status i {
+  width: 0%;
+  visibility: hidden;
+  background-color: white;
+}
+.mecar-title .me-image:hover .status i {
+  width: 100%;
+  visibility: visible;
+  background-color: white;
+} */
+.content .me-card {
+  width: fit-content;
+  min-width: 285px;
+  transform: translateY(-351px);
+  height: 780px;
+  /* backgrounbad-color: var(--headerCOlor); */
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid var(--headerCOlor);
+  padding: 0px 30px;
+  /* background-color: white; */
+}
+.mecar-title {
+  /* T4左边吸盘 */
+  margin-top: 40px;
+  /* background-color: white; */
+}
+.me-hover span {
+  margin: 0 auto;
+  display: block;
+  font: 14px;
+  border-right: .08em solid;
+  /* 个数*2ch */
+  width: 28ch;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 6s steps(28, end), blink-caret .3s step-end infinite alternate;
+    /*打字特效  */
+  /* background-color: white; */
+}
+@keyframes typing {
+    /* 打字特效 */
+  from {
+    width: 0;
+  }
+}
+@keyframes blink-caret {
+  /* 打字特效 */
+  50%{
+    border-color: transparent;
+  }
+}
+
+.mecar-bottm>div {
+  display: flex;
+  justify-content: space-between;
+  height: 25px;
+  line-height: 25px;
+  /* background-color: white; */
+}
+.mecar-bottm .mecarbottm-key {
+  font-weight: 500;
+}
+.mecar-bottm .mecarbottm-value {
+  font-weight: 500;
+  color: #747474;
+}
+
+.navigation h1 {
+  /* T3... */
+  margin: 10px 0;
+  font-size: 3.8rem;
+  color: #fcfcfe;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 30%);
+  /* background-color: white; */
+}
+
+
+.content-li>h3 {
+  /* T3...图片卡片的部分 */
+  display: flex;
+  align-items: center;
+  color: var(--headerFont);
+}
+.content-li .borderbotm {
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+img {
+  /* 内容卡片的图 */
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
